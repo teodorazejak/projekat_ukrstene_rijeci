@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ukrštene riječi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- POČETNI EKRAN -->
+  <section id="menuScreen" class="screen active">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/pozadina.jpg"
+          alt="Početni ekran"
+          class="menu-image"
+        />
+
+        <button id="startBtn" class="wood-btn start-btn">
+          POČNI IGRU
+        </button>
+
+        <button id="howToBtn" class="wood-btn howto-btn">
+          KAKO SE IGRA?
+        </button>
+
+        <button id="settingsGearBtn" class="wood-btn gear-btn" aria-label="Podešavanja">
+          ⚙
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN ZA IZBOR BROJA IGRAČA -->
+  <section id="playerModeScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/drugi_prozor.jpg"
+          alt="Izbor broja igrača"
+          class="menu-image"
+        />
+
+        <button id="onePlayerBtn" class="wood-btn player-mode-btn player-mode-1">
+          JEDAN IGRAČ
+        </button>
+
+        <button id="twoPlayersBtn" class="wood-btn player-mode-btn player-mode-2">
+          DVA IGRAČA
+        </button>
+
+        <button id="backFromPlayerMode" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN IGRE -->
+  <section id="gameScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/drugi_prozor.jpg"
+          alt="Ekran igre"
+          class="menu-image"
+        />
+
+        <button class="wood-btn difficulty-btn diff1">LAKO</button>
+        <button class="wood-btn difficulty-btn diff2">SREDNJE</button>
+        <button class="wood-btn difficulty-btn diff3">TEŠKO</button>
+
+        <div class="discover-wrapper">
+          <button class="wood-btn difficulty-btn diff4">
+            OTKRIJ NEŠTO NOVO
+          </button>
+
+          <div class="discover-tooltip">
+            Rješavanjem ukrštenice otkrij nove pojmove.
+            Po završetku dobijaš objašnjenje pojma.
+          </div>
+        </div>
+
+        <button id="backFromGame" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN LEVELA ZA LAKO -->
+  <section id="easyLevelsScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/drugi_prozor.jpg"
+          alt="Leveli - lako"
+          class="menu-image"
+        />
+
+        <div class="levels-row">
+          <div class="level-item">
+            <div class="stars" id="starsLevel1">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <button class="level-box level-box-1">1</button>
+          </div>
+
+          <div class="level-item">
+            <div class="stars" id="starsLevel2">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <button class="level-box level-box-2">2</button>
+          </div>
+
+          <div class="level-item">
+            <div class="stars" id="starsLevel3">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <button class="level-box level-box-3">3</button>
+          </div>
+        </div>
+
+        <button id="backFromEasyLevels" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN PRVE UKRŠTENICE -->
+  <section id="crosswordLevel1Screen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/pergament.jpg"
+          alt="Prva ukrštenica"
+          class="menu-image"
+        />
+
+        <div id="level1Timer" class="level-timer">00:00:00</div>
+
+        <!-- GORNJI DESNI UGAO -->
+        <div class="top-right-tools">
+          <div class="tool-wrap">
+            <button id="hintBtn" class="tool-btn">?</button>
+            <div class="tool-tooltip">hint</div>
+          </div>
+
+          <div class="tool-wrap">
+            <button id="explainBtn" class="tool-btn">!</button>
+            <div class="tool-tooltip">objašnjenje</div>
+          </div>
+        </div>
+
+        <!-- LIJEVO - VODORAVNO -->
+        <div class="clues clues-left">
+          <h3>VODORAVNO:</h3>
+          <p>(1,1) NJOME PIŠEŠ</p>
+          <p>(2,1) NEŠTO VIŠE OD BITKE</p>
+          <p>(3,1) LETEĆE PREVOZNO SREDSTVO</p>
+          <p>(5,2) TI SI NJOJ DIJETE</p>
+        </div>
+
+        <!-- DESNO - USPRAVNO -->
+        <div class="clues clues-right">
+          <h3>USPRAVNO:</h3>
+          <p>(1,1) ORAŠASTO VOĆE (U IMENU RIJEČI)</p>
+          <p>(1,2) KRALJ ŽIVOTINJA</p>
+          <p>(1,3) NA PRSTIMA, JEDINSTVEN ZA SVAKOG ČOVJEKA</p>
+          <p>(1,5) SINONIM ZA "KOFA"</p>
+          <p>(6,1) POEN U TENISU KOJI SE POSTIŽE NEVRAĆENIM SERVISOM</p>
+        </div>
+
+        <!-- TABLA -->
+        <div class="board-wrap">
+          <div id="columnLabels" class="column-labels"></div>
+
+          <div class="board-middle">
+            <div id="rowLabels" class="row-labels"></div>
+            <div class="crossword-board" id="crosswordBoard"></div>
+          </div>
+        </div>
+
+        <button id="confirmLevel1Btn" class="wood-btn confirm-btn">
+          POTVRDI
+        </button>
+
+        <button id="backFromCrossword1" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 2 -->
+  <section id="crosswordLevel2Screen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/pergament.jpg"
+          alt="Druga ukrštenica"
+          class="menu-image"
+        />
+
+        <div id="level2Timer" class="level-timer">00:00:00</div>
+
+        <div class="top-right-tools">
+          <div class="tool-wrap">
+            <button id="hintBtnLevel2" class="tool-btn">?</button>
+            <div class="tool-tooltip">hint</div>
+          </div>
+
+          <div class="tool-wrap">
+            <button id="explainBtnLevel2" class="tool-btn">!</button>
+            <div class="tool-tooltip">objašnjenje</div>
+          </div>
+        </div>
+
+        <!-- LIJEVO - VODORAVNO -->
+        <div class="clues clues-left">
+          <h3>VODORAVNO:</h3>
+          <p>(1,4) POVRATNA ZAMJENICA SEBE ILI (...)</p>
+          <p>(2,1) PTICA KOJA LETI VISOKO I IMA OŠTAR VID</p>
+          <p>(4,2) GORI I DAJE TOPLOTU</p>
+          <p>(7,1) PTICA KOJA DONOSI PROLJEĆE</p>
+        </div>
+
+        <!-- DESNO - USPRAVNO -->
+        <div class="clues clues-right">
+          <h3>USPRAVNO:</h3>
+          <p>(1,2) NOSI SE OKO VRATA UZ KOŠULJU</p>
+          <p>(4,4) PROVJERA ZNANJA</p>
+          <p>(2,6) KORISTI SE ZA RAD I POPRAVKE</p>
+        </div>
+
+        <div class="board-wrap level2-board-wrapper">
+          <div id="columnLabelsLevel2" class="column-labels"></div>
+          <div class="board-middle">
+            <div id="rowLabelsLevel2" class="row-labels"></div>
+            <div id="crosswordBoardLevel2" class="crossword-board level2-board"></div>
+          </div>
+        </div>
+
+        <button id="confirmLevel2Btn" class="wood-btn confirm-btn">
+          POTVRDI
+        </button>
+
+        <button id="backFromCrossword2" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 3 -->
+  <section id="crosswordLevel3Screen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/pergament.jpg"
+          alt="Treca ukrstenica"
+          class="menu-image"
+        />
+
+        <div id="level3Timer" class="level-timer">00:00:00</div>
+
+        <div class="top-right-tools">
+          <div class="tool-wrap">
+            <button id="hintBtnLevel3" class="tool-btn">?</button>
+            <div class="tool-tooltip">hint</div>
+          </div>
+
+          <div class="tool-wrap">
+            <button id="explainBtnLevel3" class="tool-btn">!</button>
+            <div class="tool-tooltip">objasnjenje</div>
+          </div>
+        </div>
+
+        <!-- LIJEVO - VODORAVNO -->
+        <div class="clues clues-left">
+          <h3>VODORAVNO:</h3>
+          <p>(1,1) KOKA GA SNESE</p>
+          <p>(3,1) JEDE SE KAŠIKOM IZ DUBOKOG TANJIRA</p>
+          <p>(5,3) DIO LICA KOJIM MIRIŠEMO</p>
+          <p>(7,2) UVEĆAVA MALE STVARI</p>
+        </div>
+
+        <!-- DESNO - USPRAVNO -->
+        <div class="clues clues-right">
+          <h3>USPRAVNO:</h3>
+          <p>(1,1) NA NJEMU SPAVAMO</p>
+          <p>(1,3) DRŽAVA U AZIJI</p>
+          <p>(4,5) DIO LICA BEZ KOJEG NE BISMO MOGLI DA PRIČAMO</p>
+        </div>
+
+        <div class="board-wrap level3-board-wrapper">
+          <div id="columnLabelsLevel3" class="column-labels"></div>
+          <div class="board-middle">
+            <div id="rowLabelsLevel3" class="row-labels"></div>
+            <div id="crosswordBoardLevel3" class="crossword-board level3-board"></div>
+          </div>
+        </div>
+
+        <button id="confirmLevel3Btn" class="wood-btn confirm-btn">
+          POTVRDI
+        </button>
+
+        <button id="backFromCrossword3" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL ZA HINT -->
+  <div id="hintModal" class="settings-modal">
+    <div class="settings-overlay" id="hintOverlay"></div>
+
+    <div class="settings-panel hint-panel">
+      <button id="closeHintBtn" class="settings-close" aria-label="Zatvori hint">
+        ✕
+      </button>
+
+      <h2>HINT</h2>
+
+      <p class="hint-count-text">
+        Preostali broj hintova:
+        <span id="hintCountValue">3</span>
+      </p>
+
+      <button id="useHintBtn" class="wood-btn hint-action-btn">
+        POPUNI RANDOM POLJE
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL ZA OBJAŠNJENJE -->
+  <div id="explainModal" class="settings-modal">
+    <div class="settings-overlay" id="explainOverlay"></div>
+
+    <div class="settings-panel hint-panel">
+      <button id="closeExplainBtn" class="settings-close" aria-label="Zatvori objašnjenje">
+        ✕
+      </button>
+
+      <h2>OBJAŠNJENJE</h2>
+
+      <p class="hint-count-text explain-text">
+        Uređeni par <strong>(i, j)</strong> pokazuje gdje riječ počinje.
+        <br /><br />
+        Prvi broj <strong>i</strong> označava vrstu.
+        <br />
+        Drugi broj <strong>j</strong> označava kolonu.
+        <br /><br />
+        Na primjer, <strong>(2, 3)</strong> znači da riječ počinje
+        u <strong>2. vrsti</strong> i <strong>3. koloni</strong>.
+      </p>
+    </div>
+  </div>
+
+  <!-- MODAL ZA ZAVRŠEN LEVEL -->
+  <div id="completeModal" class="settings-modal">
+    <div class="settings-overlay" id="completeOverlay"></div>
+
+    <div class="settings-panel complete-panel">
+      <h2>BRAVO!</h2>
+
+      <div id="completeStars" class="complete-stars"></div>
+
+      <p class="complete-message">
+        Tačno si popunio/la ukrštenicu.
+      </p>
+
+      <p id="completeTime" class="complete-time">Vrijeme: 00:00:00</p>
+
+      <button id="closeCompleteBtn" class="wood-btn complete-action-btn">
+        NASTAVI
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL ZA POKUŠAJ -->
+  <div id="attemptModal" class="settings-modal">
+    <div class="settings-overlay" id="attemptOverlay"></div>
+
+    <div class="settings-panel attempt-panel">
+      <h2>POKUŠAJ PONOVO</h2>
+
+      <p id="attemptMessage" class="attempt-message">
+        Provjeri crvena polja i pokušaj ponovo.
+      </p>
+
+      <button id="closeAttemptBtn" class="wood-btn attempt-action-btn">
+        U REDU
+      </button>
+    </div>
+  </div>
+
+  <!-- EKRAN KAKO SE IGRA -->
+  <section id="howToPlayScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/kako_se_igra.jpg"
+          alt="Kako se igra"
+          class="menu-image"
+        />
+
+        <div class="howto-panel">
+          <h2>KAKO SE IGRA?</h2>
+
+          <p>
+            Popuni ukrštene riječi tako što ćeš unositi tačne odgovore
+            na osnovu datih pojmova.
+          </p>
+
+          <p>
+            Svaka riječ se ukršta sa drugom, pa pazi na slova koja dijele.
+          </p>
+
+          <p>
+            Cilj je da popuniš cijelu mrežu bez greške.
+          </p>
+
+          <p>
+            Kada tačno popuniš ukrštenicu, dobijaš zvjezdice prema vremenu:
+            3 zvjezdice za manje od 2 minuta, 2 zvjezdice za manje od 5 minuta,
+            a 1 zvjezdicu za sve preko toga.
+          </p>
+
+          <p>
+            Rješenje provjeravaš dugmetom POTVRDI. Ako tri puta potvrdiš
+            pogrešno rješenje, level i dalje možeš završiti, ali najviše sa
+            1 zvjezdicom.
+          </p>
+        </div>
+
+        <button id="backFromHowToPlay" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL PODEŠAVANJA -->
+  <div id="settingsModal" class="settings-modal">
+    <div class="settings-overlay" id="settingsOverlay"></div>
+
+    <div class="settings-panel">
+      <button id="closeSettingsBtn" class="settings-close" aria-label="Zatvori podešavanja">
+        ✕
+      </button>
+
+      <h2>PODEŠAVANJA</h2>
+
+      <div class="setting-row">
+        <label for="musicVolume">Muzika</label>
+        <input
+          type="range"
+          id="musicVolume"
+          min="0"
+          max="100"
+          value="50"
+        />
+        <span id="musicVolumeValue">50%</span>
+      </div>
+
+      <div class="setting-row">
+        <label for="buttonSoundVolume">Zvuk dugmadi</label>
+        <input
+          type="range"
+          id="buttonSoundVolume"
+          min="0"
+          max="100"
+          value="70"
+        />
+        <span id="buttonSoundVolumeValue">70%</span>
+      </div>
+
+      <div class="settings-actions">
+        <button id="resetProgressBtn" class="wood-btn reset-progress-btn">
+          OBRIŠI PROGRESS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
