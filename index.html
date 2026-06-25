@@ -4,9 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ukrštene riječi</title>
+  <link rel="icon" type="image/png" href="assets/game-logo.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="coinDisplay" class="coin-display" aria-label="Broj parica">
+    <span class="coin-icon">●</span>
+    <span id="coinValue">100</span>
+  </div>
   <!-- POČETNI EKRAN -->
   <section id="menuScreen" class="screen active">
     <div class="menu-bg">
@@ -16,6 +21,8 @@
           alt="Početni ekran"
           class="menu-image"
         />
+
+        
 
         <button id="startBtn" class="wood-btn start-btn">
           POČNI IGRU
@@ -53,6 +60,96 @@
         <button id="backFromPlayerMode" class="wood-btn back-btn">
           NAZAD
         </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- IZBOR TAKMIČARSKOG REŽIMA -->
+  <section id="multiplayerModeScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img src="assets/drugi_prozor.jpg" alt="Izbor takmičarskog režima" class="menu-image" />
+
+        <div class="multiplayer-dialog">
+          <div class="multiplayer-info-panel">
+            <h2>TAKMIČARSKA UKRŠTENICA</h2>
+            <p>
+              Imate 15 sekundi da pročitate asocijacije. Zatim igrači naizmjenično
+              biraju i popunjavaju po jednu riječ, uz 20 sekundi za svaki potez.
+              Ko prvi tačno pogodi glavnu riječ, odmah pobjeđuje.
+            </p>
+          </div>
+
+          <button id="localDuelBtn" class="wood-btn player-mode-btn">
+            IGRAČ PROTIV IGRAČA
+          </button>
+
+          <button id="computerDuelBtn" class="wood-btn player-mode-btn">
+            IGRAČ PROTIV RAČUNARA
+          </button>
+        </div>
+
+        <button id="backFromMultiplayerMode" class="wood-btn back-btn">NAZAD</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAKMIČARSKA PARTIJA -->
+  <section id="battleScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper battle-wrapper">
+        <img src="assets/pergament.jpg" alt="Takmičarska ukrštenica" class="menu-image" />
+
+        <div id="battlePlayerOne" class="battle-player battle-player-left">
+          <span id="battlePlayerOneName">IGRAČ 1</span>
+          <strong id="battlePlayerOneScore">0</strong>
+          <span id="battlePlayerOneTime">20</span>
+        </div>
+
+        <div id="battlePlayerTwo" class="battle-player battle-player-right">
+          <span id="battlePlayerTwoName">IGRAČ 2</span>
+          <strong id="battlePlayerTwoScore">0</strong>
+          <span id="battlePlayerTwoTime">20</span>
+        </div>
+
+        <div class="battle-status">
+          <p id="battleTurnText">NA POTEZU: IGRAČ 1</p>
+          <p id="battleRoundText">RIJEŠENO 0 / 8</p>
+        </div>
+
+        <div id="battleIntroCountdown" class="battle-intro-countdown">
+          <div class="battle-intro-heading">
+            <span>UPOZNAJ UKRŠTENICU</span>
+          <strong id="battleIntroValue">15</strong>
+            <small>sekundi do početka</small>
+          </div>
+          <h3>ASOCIJACIJE U OVOJ IGRI I DUŽINE RIJEČI:</h3>
+          <div id="battleIntroClues" class="battle-intro-clues"></div>
+          <button id="battleIntroExitBtn" class="wood-btn battle-intro-exit-btn">IZAĐI</button>
+        </div>
+
+        <div id="battleWrongMark" class="battle-wrong-mark" aria-hidden="true">✕</div>
+        <div id="battleSecretReveal" class="battle-secret-reveal" aria-live="polite">
+          <span>GLAVNA RIJEČ JE:</span>
+          <strong id="battleSecretRevealWord"></strong>
+        </div>
+
+        <div id="battleClues" class="battle-clues"></div>
+        <div id="battleBoard" class="battle-board" aria-label="Takmičarska ukrštenica"></div>
+
+        <div class="battle-answer-panel">
+          <h3>UNOS RIJEČI</h3>
+          <p id="battleSelectedClue">Klikni na asocijaciju, pa odmah kucaj u označeni red.</p>
+          <input id="battleAnswerInput" class="battle-keyboard-input" type="text" maxlength="14" autocomplete="off" aria-label="Unos riječi u označeni red" />
+          <div class="battle-secret-guess">
+            <label for="battleSecretInput">ZNAŠ GLAVNU RIJEČ?</label>
+            <input id="battleSecretInput" type="text" maxlength="14" autocomplete="off" placeholder="Upiši glavnu riječ" />
+            <button id="battleSecretSubmitBtn" class="wood-btn battle-secret-submit-btn">POGODI</button>
+          </div>
+          <button id="battleSkipBtn" class="wood-btn battle-action-btn">PRESKOČI POTEZ</button>
+        </div>
+
+        <button id="backFromBattle" class="wood-btn battle-back-btn">PREKINI PARTIJU</button>
       </div>
     </div>
   </section>
@@ -126,11 +223,369 @@
             </div>
             <button class="level-box level-box-3">3</button>
           </div>
+
         </div>
 
         <button id="backFromEasyLevels" class="wood-btn back-btn">
           NAZAD
         </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN LEVELA ZA SREDNJE -->
+  <section id="mediumLevelsScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/drugi_prozor.jpg"
+          alt="Leveli - srednje"
+          class="menu-image"
+        />
+
+        <div class="levels-row">
+          <div class="level-item">
+            <div class="stars" id="starsMediumLevel1">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <button class="level-box medium-level-box medium-level-box-1">1</button>
+          </div>
+
+          <div class="level-item">
+            <div class="stars" id="starsMediumLevel2">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <button class="level-box medium-level-box medium-level-box-2">2</button>
+          </div>
+
+          <div class="level-item">
+            <div class="stars" id="starsMediumLevel3">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <button class="level-box medium-level-box medium-level-box-3">3</button>
+          </div>
+
+        </div>
+
+        <button id="backFromMediumLevels" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN LEVELA ZA TEŠKO -->
+  <!-- SREDNJE - LEVEL 1 -->
+  <section id="crosswordMediumLevel1Screen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img src="assets/pergament.jpg" alt="Srednja ukrštenica 1" class="menu-image" />
+        <div id="mediumLevel1Timer" class="level-timer">00:00:00</div>
+        <div class="top-right-tools">
+          <div class="tool-wrap"><button id="hintBtnMediumLevel1" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+          <div class="tool-wrap"><button id="explainBtnMediumLevel1" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+        </div>
+        <div class="clues clues-left">
+          <h3>VODORAVNO:</h3>
+          <p>(1,1) NEBESKO TIJELO KOJE KRUŽI OKO ZVIJEZDE</p>
+          <p>(3,1) LETJELICA SA KRILIMA I MOTORIMA</p>
+          <p>(5,1) STRANA SVIJETA NA KOJOJ IZLAZI SUNCE</p>
+          <p>(7,1) PODACI O MJESTU STANOVANJA</p>
+        </div>
+        <div class="clues clues-right">
+          <h3>USPRAVNO:</h3>
+          <p>(1,1) VISOKO UZVIŠENJE U PRIRODI</p>
+        </div>
+        <div class="board-wrap medium-level1-board-wrapper">
+          <div id="columnLabelsMediumLevel1" class="column-labels"></div>
+          <div class="board-middle">
+            <div id="rowLabelsMediumLevel1" class="row-labels"></div>
+            <div id="crosswordBoardMediumLevel1" class="crossword-board medium-level1-board"></div>
+          </div>
+        </div>
+        <button id="confirmMediumLevel1Btn" class="wood-btn confirm-btn">POTVRDI</button>
+        <button id="backFromMediumCrossword1" class="wood-btn back-btn">NAZAD</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SREDNJE - LEVEL 2 -->
+  <section id="crosswordMediumLevel2Screen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img src="assets/pergament.jpg" alt="Srednja ukrštenica 2" class="menu-image" />
+        <div id="mediumLevel2Timer" class="level-timer">00:00:00</div>
+        <div class="top-right-tools">
+          <div class="tool-wrap"><button id="hintBtnMediumLevel2" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+          <div class="tool-wrap"><button id="explainBtnMediumLevel2" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+        </div>
+        <div class="clues clues-left">
+          <h3>VODORAVNO:</h3>
+          <p>(1,1) POKAZUJE STRANE SVIJETA</p>
+          <p>(3,2) LETJELICA SA KRILIMA I MOTORIMA</p>
+          <p>(5,2) PLOVILO ZA PREVOZ PO VODI</p>
+          <p>(7,1) BIJELA ILI SIVA MASA NA NEBU</p>
+        </div>
+        <div class="clues clues-right">
+          <h3>USPRAVNO:</h3>
+          <p>(1,4) SVE ŠTO NAS OKRUŽUJE, A NIJE STVORIO ČOVJEK</p>
+        </div>
+        <div class="board-wrap medium-level2-board-wrapper">
+          <div id="columnLabelsMediumLevel2" class="column-labels"></div>
+          <div class="board-middle">
+            <div id="rowLabelsMediumLevel2" class="row-labels"></div>
+            <div id="crosswordBoardMediumLevel2" class="crossword-board medium-level2-board"></div>
+          </div>
+        </div>
+        <button id="confirmMediumLevel2Btn" class="wood-btn confirm-btn">POTVRDI</button>
+        <button id="backFromMediumCrossword2" class="wood-btn back-btn">NAZAD</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SREDNJE - LEVEL 3 -->
+  <section id="crosswordMediumLevel3Screen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img src="assets/pergament.jpg" alt="Srednja ukrštenica 3" class="menu-image" />
+        <div id="mediumLevel3Timer" class="level-timer">00:00:00</div>
+        <div class="top-right-tools">
+          <div class="tool-wrap"><button id="hintBtnMediumLevel3" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+          <div class="tool-wrap"><button id="explainBtnMediumLevel3" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+        </div>
+        <div class="clues clues-left">
+          <h3>VODORAVNO:</h3>
+          <p>(1,1) DRVO BIJELE KORE</p>
+          <p>(3,2) OBLAK PRI TLU KOJI SMANJUJE VIDLJIVOST</p>
+          <p>(6,2) KRETANJE VAZDUHA</p>
+          <p>(8,1) UMJETNIČKI PRIKAZ NA PAPIRU ILI PLATNU</p>
+          <p>(9,3) KRETANJE VODENE POVRŠINE</p>
+        </div>
+        <div class="clues clues-right">
+          <h3>USPRAVNO:</h3>
+          <p>(1,4) ZADATAK ČIJE SE RJEŠENJE OTKRIVA RAZMIŠLJANJEM</p>
+        </div>
+        <div class="board-wrap medium-level3-board-wrapper">
+          <div id="columnLabelsMediumLevel3" class="column-labels"></div>
+          <div class="board-middle">
+            <div id="rowLabelsMediumLevel3" class="row-labels"></div>
+            <div id="crosswordBoardMediumLevel3" class="crossword-board medium-level3-board"></div>
+          </div>
+        </div>
+        <button id="confirmMediumLevel3Btn" class="wood-btn confirm-btn">POTVRDI</button>
+        <button id="backFromMediumCrossword3" class="wood-btn back-btn">NAZAD</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="hardLevelsScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/drugi_prozor.jpg"
+          alt="Leveli - teško"
+          class="menu-image"
+        />
+
+        <div class="levels-row">
+          <div class="level-item">
+            <div class="stars" id="starsHardLevel1">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </div>
+            <button class="level-box hard-level-box hard-level-box-1">1</button>
+          </div>
+          <div class="level-item">
+            <div class="stars" id="starsHardLevel2">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </div>
+            <button class="level-box hard-level-box hard-level-box-2">2</button>
+          </div>
+          <div class="level-item">
+            <div class="stars" id="starsHardLevel3">
+              <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </div>
+            <button class="level-box hard-level-box hard-level-box-3">3</button>
+          </div>
+        </div>
+
+        <button id="backFromHardLevels" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EKRAN LEVELA ZA OTKRIJ NEŠTO NOVO -->
+  <!-- TEŠKO - LEVEL 1 -->
+  <section id="crosswordHardLevel1Screen" class="screen">
+    <div class="menu-bg"><div class="menu-wrapper">
+      <img src="assets/pergament.jpg" alt="Teška ukrštenica 1" class="menu-image" />
+      <div id="hardLevel1Timer" class="level-timer">00:00:00</div>
+      <div class="top-right-tools">
+        <div class="tool-wrap"><button id="hintBtnHardLevel1" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+        <div class="tool-wrap"><button id="explainBtnHardLevel1" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+      </div>
+      <div class="clues clues-left hard-clues">
+        <h3>VODORAVNO:</h3>
+        <p>(1,3) PRIRODNA ČVRSTA MATERIJA OD KOJE SU GRAĐENE STIJENE</p>
+        <p>(3,1) OTVOR U ZEMLJINOJ KORI IZ KOJEG IZLAZI LAVA</p>
+        <p>(5,4) NEBESKO TIJELO KOJE SAGORIJEVA U ATMOSFERI</p>
+        <p>(7,1) UDUBLJENJE NASTALO UDAROM ILI ERUPCIJOM</p>
+        <p>(11,1) OGROMAN SISTEM ZVIJEZDA, GASA I PRAŠINE</p>
+      </div>
+      <div class="clues clues-right hard-clues">
+        <h3>USPRAVNO:</h3>
+        <p>(1,8) NAUČNIK KOJI PROUČAVA NEBESKA TIJELA I SVEMIR</p>
+        <p>(3,4) NEBESKO TIJELO SA REPOM</p>
+        <p>(6,2) PROZIRNO TIJELO KOJE RAZLAŽE SVJETLOST</p>
+      </div>
+      <div class="board-wrap hard-level1-board-wrapper">
+        <div id="columnLabelsHardLevel1" class="column-labels"></div>
+        <div class="board-middle"><div id="rowLabelsHardLevel1" class="row-labels"></div><div id="crosswordBoardHardLevel1" class="crossword-board hard-level1-board"></div></div>
+      </div>
+      <button id="confirmHardLevel1Btn" class="wood-btn confirm-btn">POTVRDI</button>
+      <button id="backFromHardCrossword1" class="wood-btn back-btn">NAZAD</button>
+    </div></div>
+  </section>
+
+  <!-- TEŠKO - LEVEL 2 -->
+  <section id="crosswordHardLevel2Screen" class="screen">
+    <div class="menu-bg"><div class="menu-wrapper">
+      <img src="assets/pergament.jpg" alt="Teška ukrštenica 2" class="menu-image" />
+      <div id="hardLevel2Timer" class="level-timer">00:00:00</div>
+      <div class="top-right-tools">
+        <div class="tool-wrap"><button id="hintBtnHardLevel2" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+        <div class="tool-wrap"><button id="explainBtnHardLevel2" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+      </div>
+      <div class="clues clues-left hard-clues">
+        <h3>VODORAVNO:</h3>
+        <p>(1,4) MATEMATIČKI ILI HEMIJSKI ZAPIS ODNOSA</p>
+        <p>(6,1) OSNOVNA GRAĐEVNA JEDINICA ŽIVIH BIĆA</p>
+        <p>(8,2) MIKROORGANIZAM KOJI MOŽE BITI KORISTAN ILI ŠTETAN</p>
+        <p>(10,1) POZITIVNO NAELEKTRISANA ČESTICA U JEZGRU ATOMA</p>
+        <p>(12,1) NEGATIVNO NAELEKTRISANA ELEMENTARNA ČESTICA</p>
+      </div>
+      <div class="clues clues-right hard-clues">
+        <h3>USPRAVNO:</h3>
+        <p>(1,10) PRECIZAN NIZ KORAKA ZA RJEŠAVANJE PROBLEMA</p>
+        <p>(3,8) PROCES U KOJEM NASTAJU NOVE SUPSTANCE</p>
+        <p>(4,5) DIO ELEKTROMAGNETNOG ZRAČENJA VIDLJIV OKU</p>
+      </div>
+      <div class="board-wrap hard-level2-board-wrapper">
+        <div id="columnLabelsHardLevel2" class="column-labels"></div>
+        <div class="board-middle"><div id="rowLabelsHardLevel2" class="row-labels"></div><div id="crosswordBoardHardLevel2" class="crossword-board hard-level2-board"></div></div>
+      </div>
+      <button id="confirmHardLevel2Btn" class="wood-btn confirm-btn">POTVRDI</button>
+      <button id="backFromHardCrossword2" class="wood-btn back-btn">NAZAD</button>
+    </div></div>
+  </section>
+
+  <!-- TEŠKO - LEVEL 3 -->
+  <section id="crosswordHardLevel3Screen" class="screen">
+    <div class="menu-bg"><div class="menu-wrapper">
+      <img src="assets/pergament.jpg" alt="Teška ukrštenica 3" class="menu-image" />
+      <div id="hardLevel3Timer" class="level-timer">00:00:00</div>
+      <div class="top-right-tools">
+        <div class="tool-wrap"><button id="hintBtnHardLevel3" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+        <div class="tool-wrap"><button id="explainBtnHardLevel3" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+      </div>
+      <div class="clues clues-left hard-clues">
+        <h3>VODORAVNO:</h3>
+        <p>(1,2) UKUPNOST DUHOVNIH I MATERIJALNIH VRIJEDNOSTI DRUŠTVA</p>
+        <p>(3,1) NAUKA O ŽIVIM BIĆIMA</p>
+        <p>(6,4) SPOSOBNOST ČUVANJA I PRISJEĆANJA INFORMACIJA</p>
+        <p>(8,1) NIZ NAREDBI KOJE RAČUNAR IZVRŠAVA</p>
+        <p>(11,3) PRAKTIČNA PRIMJENA ZNANJA I VJEŠTINA</p>
+      </div>
+      <div class="clues clues-right hard-clues">
+        <h3>USPRAVNO:</h3>
+        <p>(1,2) STRUČNJAK ZA ZAŠTITU I TUMAČENJE ŠIFROVANIH PODATAKA</p>
+        <p>(3,9) STRUČNJAK KOJI PROJEKTUJE GRAĐEVINE</p>
+        <p>(5,11) OSOBA KOJA SE BAVI NAUČNIM ISTRAŽIVANJEM</p>
+      </div>
+      <div class="board-wrap hard-level3-board-wrapper">
+        <div id="columnLabelsHardLevel3" class="column-labels"></div>
+        <div class="board-middle"><div id="rowLabelsHardLevel3" class="row-labels"></div><div id="crosswordBoardHardLevel3" class="crossword-board hard-level3-board"></div></div>
+      </div>
+      <button id="confirmHardLevel3Btn" class="wood-btn confirm-btn">POTVRDI</button>
+      <button id="backFromHardCrossword3" class="wood-btn back-btn">NAZAD</button>
+    </div></div>
+  </section>
+
+  <section id="discoverLevelsScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img
+          src="assets/drugi_prozor.jpg"
+          alt="Leveli - otkrij nešto novo"
+          class="menu-image"
+        />
+
+        <div class="levels-row">
+          <div class="level-item">
+            <button class="level-box discover-level-box" data-discover-level="0" aria-label="Otkrij nešto novo - prva tajna">★</button>
+          </div>
+
+          <div class="level-item">
+            <button class="level-box discover-level-box" data-discover-level="1" aria-label="Otkrij nešto novo - druga tajna">?</button>
+          </div>
+
+          <div class="level-item">
+            <button class="level-box discover-level-box" data-discover-level="2" aria-label="Otkrij nešto novo - treća tajna">✦</button>
+          </div>
+
+          <div class="level-item">
+            <button class="level-box discover-level-box" data-discover-level="3" aria-label="Otkrij nešto novo - četvrta tajna">◆</button>
+          </div>
+
+          <div class="level-item">
+            <button class="level-box discover-level-box" data-discover-level="4" aria-label="Otkrij nešto novo - peta tajna">☼</button>
+          </div>
+        </div>
+
+        <button id="backFromDiscoverLevels" class="wood-btn back-btn">
+          NAZAD
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTKRIJ NEŠTO NOVO - ZAJEDNIČKI EKRAN -->
+  <section id="crosswordDiscoverScreen" class="screen">
+    <div class="menu-bg">
+      <div class="menu-wrapper">
+        <img src="assets/pergament.jpg" alt="Tajanstvena ukrštenica" class="menu-image" />
+        <div class="top-right-tools">
+          <div class="tool-wrap"><button id="hintBtnDiscover" class="tool-btn">?</button><div class="tool-tooltip">hint</div></div>
+          <div class="tool-wrap"><button id="explainBtnDiscover" class="tool-btn">!</button><div class="tool-tooltip">objašnjenje</div></div>
+        </div>
+
+        <div id="discoverClues" class="clues clues-left discover-clues">
+          <h3>VODORAVNO:</h3>
+        </div>
+
+        <div class="clues clues-right discover-main-hint">
+          <h3>TAJNI POJAM:</h3>
+          <p>Slova u zlatnoj koloni otkrivaju glavni pojam.</p>
+          <p>Popuni riječi, a zatim pročitaj označena slova odozgo prema dolje.</p>
+        </div>
+
+        <div id="discoverBoardWrap" class="board-wrap discover-board-wrapper">
+          <div id="columnLabelsDiscover" class="column-labels"></div>
+          <div class="board-middle">
+            <div id="rowLabelsDiscover" class="row-labels"></div>
+            <div id="crosswordBoardDiscover" class="crossword-board discover-board"></div>
+          </div>
+        </div>
+
+        <button id="confirmDiscoverBtn" class="wood-btn confirm-btn">POTVRDI</button>
+        <button id="backFromDiscoverCrossword" class="wood-btn back-btn">NAZAD</button>
       </div>
     </div>
   </section>
@@ -387,6 +842,20 @@
     </div>
   </div>
 
+  <!-- MODAL ZA OTKRIVENI POJAM -->
+  <div id="discoverCompleteModal" class="settings-modal">
+    <div class="settings-overlay" id="discoverCompleteOverlay"></div>
+
+    <div class="settings-panel discover-complete-panel">
+      <button id="closeDiscoverCompleteBtn" class="settings-close" aria-label="Zatvori otkriveni pojam">✕</button>
+      <h2 id="discoverCompleteTitle">OTKRIVENI POJAM</h2>
+      <img id="discoverCompleteImage" class="discover-complete-image" src="" alt="" />
+      <p id="discoverCompleteFact" class="discover-complete-fact"></p>
+      <p id="discoverCompleteReward" class="discover-complete-reward"></p>
+      <button id="continueDiscoverBtn" class="wood-btn complete-action-btn">NASTAVI</button>
+    </div>
+  </div>
+
   <!-- MODAL ZA POKUŠAJ -->
   <div id="attemptModal" class="settings-modal">
     <div class="settings-overlay" id="attemptOverlay"></div>
@@ -401,6 +870,27 @@
       <button id="closeAttemptBtn" class="wood-btn attempt-action-btn">
         U REDU
       </button>
+    </div>
+  </div>
+
+  <!-- OPŠTA USPJEŠNA PORUKA -->
+  <div id="noticeModal" class="settings-modal">
+    <div class="settings-overlay" id="noticeOverlay"></div>
+    <div class="settings-panel notice-panel">
+      <h2 id="noticeTitle">USPJEŠNO</h2>
+      <p id="noticeMessage" class="attempt-message"></p>
+      <button id="closeNoticeBtn" class="wood-btn attempt-action-btn">U REDU</button>
+    </div>
+  </div>
+
+  <!-- REZULTAT TAKMIČARSKE PARTIJE -->
+  <div id="battleResultModal" class="settings-modal">
+    <div class="settings-overlay" id="battleResultOverlay"></div>
+    <div class="settings-panel complete-panel">
+      <h2 id="battleResultTitle">KRAJ PARTIJE</h2>
+      <p id="battleResultScore" class="attempt-message"></p>
+      <button id="battlePlayAgainBtn" class="wood-btn complete-action-btn">NOVA PARTIJA</button>
+      <button id="battleResultBackBtn" class="wood-btn complete-action-btn battle-result-back">NAZAD</button>
     </div>
   </div>
 
@@ -440,6 +930,12 @@
             Rješenje provjeravaš dugmetom POTVRDI. Ako tri puta potvrdiš
             pogrešno rješenje, level i dalje možeš završiti, ali najviše sa
             1 zvjezdicom.
+          </p>
+
+          <p>
+            Na svakom levelu prva 3 hinta su besplatna, a svaki naredni košta
+            50 parica. Ako iskoristiš 5 ili više hintova na istom levelu,
+            gubiš mogućnost osvajanja treće zvjezdice.
           </p>
         </div>
 
