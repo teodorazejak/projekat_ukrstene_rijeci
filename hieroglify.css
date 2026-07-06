@@ -1,0 +1,104 @@
+/* ============================================================
+   Hijeroglifi — intro (loading) + prelaz između ekrana
+   Aditivni sloj. Uklanja se brisanjem <link> i <script> iz index.html.
+   ============================================================ */
+
+/* ---- INTRO / LOADING ---- */
+#glyphIntro {
+  position: fixed;      /* dimenzije (left/top/width/height) postavlja JS = panel app-a */
+  z-index: 10000;
+  overflow: hidden;
+  border-radius: 14px;  /* iste zaobljene ivice kao panel */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  background: radial-gradient(circle at 50% 38%, #241a0e, #0c0805);
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+#glyphIntro.gi-in { opacity: 1; }
+#glyphIntro .gi-word {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.15rem, 1vw, 0.5rem);
+  max-width: 92vw;
+}
+#glyphIntro .gi-space { width: clamp(0.5rem, 3vw, 1.4rem); }
+
+.gi-tile {
+  position: relative;
+  width: clamp(30px, 5.5vw, 52px);
+  height: clamp(40px, 7.5vw, 66px);
+  display: grid;
+  place-items: center;
+}
+.gi-tile .gi-face {
+  grid-area: 1 / 1;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.5, 0, 0.2, 1);
+  transition-delay: calc(var(--i) * 0.07s);
+}
+.gi-glyph { width: 100%; height: 100%; fill: #e9c877; }
+.gi-glyph .accent { fill: #c8912f; }
+.gi-letter {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  color: #e9c877;
+  opacity: 0;
+  transform: scale(0.5) rotateX(-70deg);
+}
+#glyphIntro.gi-morph .gi-glyph { opacity: 0; transform: scale(0.55) rotateX(70deg); }
+#glyphIntro.gi-morph .gi-letter { opacity: 1; transform: scale(1) rotateX(0deg); }
+
+.gi-hint {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #9a8558;
+}
+
+/* ---- PRELAZ IZMEĐU EKRANA (wipe) ---- */
+#glyphWipe {
+  position: fixed;      /* dimenzije postavlja JS = panel app-a */
+  z-index: 9000;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 14px;
+  display: none;
+}
+#glyphWipe.gw-run { display: block; }
+#glyphWipe .gw-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 150%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 30px;
+  background: linear-gradient(90deg, transparent, #b8862f 10%, #a9781f 50%, #b8862f 90%, transparent);
+  transform: translateX(-160%);
+}
+#glyphWipe .gw-band svg {
+  width: clamp(34px, 6vw, 52px);
+  height: clamp(34px, 6vw, 52px);
+  fill: rgba(28, 18, 8, 0.85);
+  flex: 0 0 auto;
+}
+#glyphWipe.gw-run .gw-band {
+  animation: gwSweep 1.5s cubic-bezier(0.55, 0, 0.35, 1) forwards;
+}
+@keyframes gwSweep {
+  from { transform: translateX(-160%); }
+  to   { transform: translateX(160%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gi-tile .gi-face { transition-duration: 0.001s; }
+  #glyphWipe.gw-run .gw-band { animation-duration: 0.001s; }
+}
