@@ -52,7 +52,7 @@
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var INTRO_MORPH_DELAY = 1400;
   var INTRO_TOTAL_TIME = 4800;
-  var WIPE_SWAP_DELAY = 1100;
+  var WIPE_SWAP_TIME = 1300;
   var WIPE_TOTAL_TIME = 3200;
 
   function useSvg(id, cls) {
@@ -185,7 +185,9 @@
     void wipe.offsetWidth; // restart animacije
     wipe.classList.add("gw-run");
     document.documentElement.classList.add("gw-no-screen-fade");
-    setTimeout(swap, WIPE_SWAP_DELAY);  // zamjena ekrana dok traka prekriva
+    setTimeout(function () {
+      swap();
+    }, WIPE_SWAP_TIME);
     setTimeout(function () {
       wipe.classList.remove("gw-run");
       document.documentElement.classList.remove("gw-no-screen-fade");
