@@ -52,8 +52,8 @@
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var INTRO_MORPH_DELAY = 1400;
   var INTRO_TOTAL_TIME = 4800;
-  var WIPE_SWAP_DELAY = 850;
-  var WIPE_TOTAL_TIME = 2500;
+  var WIPE_SWAP_DELAY = 1100;
+  var WIPE_TOTAL_TIME = 3200;
 
   function useSvg(id, cls) {
     return '<svg class="' + cls + '" viewBox="0 0 100 100"><use href="#' + id + '"/></svg>';
@@ -118,6 +118,7 @@
     if (window.__glyphIntroDone) return;
     window.__glyphIntroDone = true;
     introTimers.forEach(clearTimeout);
+    document.body.classList.add("gi-intro-complete");
     intro.classList.remove("gi-in"); // fade-out
     setTimeout(function () {
       if (intro.parentNode) intro.parentNode.removeChild(intro);
@@ -210,6 +211,11 @@
         nextScreen.id === "playerModeScreen";
 
       if (isStartGame) {
+        var startButton = document.getElementById("startBtn");
+        if (startButton) startButton.classList.add("gw-start-pressed");
+        setTimeout(function () {
+          if (startButton) startButton.classList.remove("gw-start-pressed");
+        }, 160);
         playWipe(function () { orig.apply(ctx, args); });
         return;
       }
