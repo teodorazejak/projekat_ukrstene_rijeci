@@ -30,6 +30,16 @@
     '<symbol id="g-2reed" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round"><path d="M34 30 26 76M60 30 52 76" fill="none" stroke="currentColor" stroke-width="9"/></symbol>' +
     '<symbol id="g-coil" viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round"><path d="M50 22A24 24 0 1 1 26 46A14 14 0 1 1 50 46A4 4 0 1 1 46 46" fill="none" stroke="currentColor" stroke-width="8"/></symbol>' +
     '<symbol id="g-chisel" viewBox="0 0 100 100"><path d="M38 12 62 12 55 56 45 56Z"/><rect x="44" y="54" width="12" height="34" rx="3"/></symbol>' +
+    '<symbol id="g-line-eye" viewBox="0 0 100 100"><path d="M12 50Q40 29 72 40Q88 46 88 50Q88 54 72 60Q40 71 12 50Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M34 48Q47 56 60 48M72 40 76 24M22 45 18 30M30 60 22 78" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>' +
+    '<symbol id="g-line-reed" viewBox="0 0 100 100"><path d="M50 12Q32 31 39 61Q45 84 60 66Q70 42 50 12Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M50 12 50 86M39 61 29 83M60 66 48 87" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></symbol>' +
+    '<symbol id="g-line-seed" viewBox="0 0 100 100"><path d="M50 16Q31 38 42 70Q50 91 63 66Q70 38 50 16Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/></symbol>' +
+    '<symbol id="g-line-foot" viewBox="0 0 100 100"><path d="M14 70Q44 61 75 64Q86 66 80 74Q48 82 17 77Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M27 67Q37 48 56 44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></symbol>' +
+    '<symbol id="g-line-bird" viewBox="0 0 100 100"><path d="M25 74Q28 49 48 48Q52 37 65 39Q61 48 69 55Q82 59 78 75Q57 77 25 74Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M66 40 82 36M50 75 43 90M65 75 66 90M70 56Q78 52 84 56" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>' +
+    '<symbol id="g-line-wave" viewBox="0 0 100 100"><path d="M18 30Q30 20 42 30T66 30T86 30M14 50Q28 40 42 50T68 50T88 50M20 70Q32 60 44 70T68 70" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></symbol>' +
+    '<symbol id="g-line-oval" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="22" ry="34" fill="none" stroke="currentColor" stroke-width="5"/></symbol>' +
+    '<symbol id="g-line-slash" viewBox="0 0 100 100"><path d="M30 78 72 22M43 84 85 38" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></symbol>' +
+    '<symbol id="g-line-mouth" viewBox="0 0 100 100"><path d="M14 53Q47 41 82 50Q64 62 18 59" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/></symbol>' +
+    '<symbol id="g-line-hill" viewBox="0 0 100 100"><path d="M16 72Q31 54 50 58Q66 61 84 72Q54 77 16 72Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/></symbol>' +
     "</defs></svg>";
 
   var host = document.createElement("div");
@@ -40,6 +50,10 @@
 
   var reduce =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var INTRO_MORPH_DELAY = 1400;
+  var INTRO_TOTAL_TIME = 4800;
+  var WIPE_SWAP_DELAY = 850;
+  var WIPE_TOTAL_TIME = 2500;
 
   function useSvg(id, cls) {
     return '<svg class="' + cls + '" viewBox="0 0 100 100"><use href="#' + id + '"/></svg>';
@@ -67,11 +81,11 @@
 
   /* ---------- INTRO (naslov UKRŠTENE RIJEČI) ---------- */
   var TITLE = [
-    ["g-quail", "U"], ["g-basket", "K"], ["g-mouth", "R"], ["g-pool", "Š"],
-    ["g-bread", "T"], ["g-2reed", "E"], ["g-water", "N"], ["g-2reed", "E"],
+    ["g-line-bird", "U"], ["g-line-hill", "K"], ["g-line-mouth", "R"], ["g-line-eye", "Š"],
+    ["g-line-foot", "T"], ["g-line-reed", "E"], ["g-line-wave", "N"], ["g-line-reed", "E"],
     ["space", ""],
-    ["g-mouth", "R"], ["g-reed", "I"], ["g-coil", "J"], ["g-2reed", "E"],
-    ["g-chisel", "Č"], ["g-reed", "I"]
+    ["g-line-mouth", "R"], ["g-line-seed", "I"], ["g-line-oval", "J"], ["g-line-reed", "E"],
+    ["g-line-slash", "Č"], ["g-line-seed", "I"]
   ];
 
   var intro = document.createElement("div");
@@ -121,8 +135,8 @@
       intro.classList.add("gi-morph");
       introTimers.push(setTimeout(endIntro, 900));
     } else {
-      introTimers.push(setTimeout(function () { intro.classList.add("gi-morph"); }, 650));
-      introTimers.push(setTimeout(endIntro, 2500));
+      introTimers.push(setTimeout(function () { intro.classList.add("gi-morph"); }, INTRO_MORPH_DELAY));
+      introTimers.push(setTimeout(endIntro, INTRO_TOTAL_TIME));
     }
   }
 
@@ -147,8 +161,9 @@
   var band = document.createElement("div");
   band.className = "gw-band";
   var bandIds = [
-    "g-ankh", "g-eye", "g-scarab", "g-sun", "g-was", "g-djed", "g-feather",
-    "g-cobra", "g-ankh", "g-eye", "g-scarab", "g-sun", "g-was", "g-djed"
+    "g-line-eye", "g-line-reed", "g-line-seed", "g-line-foot", "g-line-wave",
+    "g-line-bird", "g-line-oval", "g-line-slash", "g-line-mouth", "g-line-hill",
+    "g-line-eye", "g-line-reed", "g-line-bird", "g-line-wave"
   ];
   band.innerHTML = bandIds
     .map(function (id) { return '<svg viewBox="0 0 100 100"><use href="#' + id + '"/></svg>'; })
@@ -158,17 +173,23 @@
 
   var wiping = false;
   function playWipe(swap) {
-    if (reduce || wiping) { swap(); return; }
+    if (reduce) { swap(); return; }
+    if (wiping) {
+      swap();
+      return;
+    }
     wiping = true;
     place(wipe);   // veži traku za trenutni panel app-a
     wipe.classList.remove("gw-run");
     void wipe.offsetWidth; // restart animacije
     wipe.classList.add("gw-run");
-    setTimeout(swap, 620);  // zamjena ekrana dok traka prekriva
+    document.documentElement.classList.add("gw-no-screen-fade");
+    setTimeout(swap, WIPE_SWAP_DELAY);  // zamjena ekrana dok traka prekriva
     setTimeout(function () {
       wipe.classList.remove("gw-run");
+      document.documentElement.classList.remove("gw-no-screen-fade");
       wiping = false;
-    }, 1600);
+    }, WIPE_TOTAL_TIME);
   }
 
   /* ---------- Omotaj globalnu showScreen ---------- */
@@ -180,7 +201,20 @@
       }
       var ctx = this;
       var args = arguments;
-      playWipe(function () { orig.apply(ctx, args); });
+      var activeScreen = document.querySelector(".screen.active");
+      var nextScreen = args[0];
+      var isStartGame =
+        activeScreen &&
+        activeScreen.id === "menuScreen" &&
+        nextScreen &&
+        nextScreen.id === "playerModeScreen";
+
+      if (isStartGame) {
+        playWipe(function () { orig.apply(ctx, args); });
+        return;
+      }
+
+      return orig.apply(ctx, args);
     };
   }
 })();

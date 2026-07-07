@@ -3,6 +3,17 @@
    Aditivni sloj. Uklanja se brisanjem <link> i <script> iz index.html.
    ============================================================ */
 
+:root {
+  --glyph-button-text: #e4c07a;
+  --glyph-transition-bg: #4e2f19;
+  --glyph-transition-bg-light: #6b4326;
+  --glyph-display-font: Georgia, "Times New Roman", serif;
+}
+
+.gw-no-screen-fade .screen {
+  transition: none;
+}
+
 /* ---- INTRO / LOADING ---- */
 #glyphIntro {
   position: fixed;      /* dimenzije (left/top/width/height) postavlja JS = panel app-a */
@@ -14,7 +25,7 @@
   align-items: center;
   justify-content: center;
   gap: 1.6rem;
-  background: radial-gradient(circle at 50% 38%, #241a0e, #0c0805);
+  background: var(--glyph-transition-bg);
   opacity: 0;
   transition: opacity 0.55s ease;
 }
@@ -40,13 +51,24 @@
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.5, 0, 0.2, 1);
   transition-delay: calc(var(--i) * 0.07s);
 }
-.gi-glyph { width: 100%; height: 100%; fill: #e9c877; }
-.gi-glyph .accent { fill: #c8912f; }
+.gi-glyph {
+  width: 100%;
+  height: 100%;
+  color: var(--glyph-button-text);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.gi-glyph .accent {
+  fill: none;
+  stroke: currentColor;
+}
 .gi-letter {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-family: var(--glyph-display-font);
   font-weight: 700;
   font-size: clamp(1.5rem, 4vw, 2.4rem);
-  color: #e9c877;
+  color: var(--glyph-button-text);
   opacity: 0;
   transform: scale(0.5) rotateX(-70deg);
 }
@@ -58,7 +80,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: #9a8558;
+  color: #2b1a0f;
 }
 
 /* ---- PRELAZ IZMEĐU EKRANA (wipe) ---- */
@@ -81,17 +103,29 @@
   align-items: center;
   gap: 14px;
   padding: 0 30px;
-  background: linear-gradient(90deg, transparent, #b8862f 10%, #a9781f 50%, #b8862f 90%, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glyph-transition-bg) 10%,
+    var(--glyph-transition-bg-light) 50%,
+    var(--glyph-transition-bg) 90%,
+    transparent
+  );
   transform: translateX(-160%);
 }
 #glyphWipe .gw-band svg {
   width: clamp(34px, 6vw, 52px);
   height: clamp(34px, 6vw, 52px);
-  fill: rgba(28, 18, 8, 0.85);
+  color: var(--glyph-button-text);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   flex: 0 0 auto;
+  filter: drop-shadow(0 1px 0 rgba(255, 240, 190, 0.18));
 }
 #glyphWipe.gw-run .gw-band {
-  animation: gwSweep 1.5s cubic-bezier(0.55, 0, 0.35, 1) forwards;
+  animation: gwSweep 2.5s cubic-bezier(0.5, 0, 0.28, 1) forwards;
 }
 @keyframes gwSweep {
   from { transform: translateX(-160%); }
